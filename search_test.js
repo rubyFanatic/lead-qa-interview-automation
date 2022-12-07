@@ -19,13 +19,19 @@ Scenario('Valid label id search via auto-suggestion should return the right Labe
   I.see('Test Kit Retrieved');
 });
 
-Scenario('Latest Search results should appear at the bottom of the Results container @P1, @regression',  async ({ I }) => {
+Scenario('Multiple kit id search and latest Search results should appear at the bottom of the Results container @P1, @regression',  async ({ I }) => {
   I.click({ css: 'svg[data-testid=CloseIcon]' });
   I.fillField({ css: 'input[type=text]' }, '63-921-1364');
   I.pressKey('Enter');
   // Latest search result always shows up at the bottom
   I.see('63-921-1364','//table/tbody/tr[2]/td[1]');
   I.see('6955996673','//table/tbody/tr[2]/td[2]');
+});
+
+Scenario('Partial matched search should open suggestions for auto complete  @P0, @regression',  async ({ I }) => {
+  I.fillField({ css: 'input[type=text]' }, '123');
+  I.seeElement('.MuiInputBase-root');
+
 });
 
 Scenario('Invalid Label id should return appropriate toast message @P0, @regression',  async ({ I }) => {
