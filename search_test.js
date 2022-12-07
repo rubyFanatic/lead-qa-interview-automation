@@ -2,14 +2,20 @@ Feature('validate search page');
 
 const assert = require('assert');
 
-
-Scenario('Valid label id search via auto-suggestion should return the right Label id and Shipping Tracking code @P0, @regression' ,  async ({ I }) => {
+Scenario('Search box is visible and Label id text is present in the search box @P0, @regression' ,  async ({ I }) => {
   I.amOnPage('/');
+  I.seeElement('.search-box-container');
+  I.see('Label Id', {css: 'label[id=mui-2-label]'} )
+});
+
+Scenario('Valid label id search via auto-suggestion should return the right Label id, Shipping Tracking code and toast message @P0, @regression' ,  async ({ I }) => {
+  //I.amOnPage('/');
   I.fillField({ css: 'input[type=text]' }, '47-561-8310');
   I.pressKey('Enter');
   // test returns Label Id and Shipping Tracking code
   I.see('47-561-8310','//table/tbody/tr/td[1]');
   I.see('5796955810','//table/tbody/tr/td[2]');
+  I.seeElement('.Toastify__toast-container');
   I.see('Test Kit Retrieved');
 });
 
